@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+### UNITY
+
+Library/
+ProjectSettings/
+Temp/
+UserSettings
+
+# proprietary
+/Assets/KinematicCharacterController
+/Assets/Acorn Bringer Assets
+/Assets/TextMesh Pro
