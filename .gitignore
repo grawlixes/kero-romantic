@@ -365,9 +365,7 @@ FodyWeavers.xsd
 ### UNITY
 
 Library/
-ProjectSettings/
 Temp/
-UserSettings
 
 # proprietary
 /Assets/KinematicCharacterController

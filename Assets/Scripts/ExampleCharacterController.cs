@@ -26,6 +26,7 @@ namespace KinematicCharacterController.Examples
         public bool miniJump;
         public bool CrouchDown;
         public bool CrouchUp;
+        public bool sprinting;
     }
 
     public struct AICharacterInputs
@@ -47,13 +48,16 @@ namespace KinematicCharacterController.Examples
         public AnimationController animationController;
 
         [Header("Stable Movement")]
-        public float MaxStableMoveSpeed = 10f;
+        public float MaxStableMoveSpeed = 5f;
+        public float maxStableSprintingSpeed = 10f;
         public float StableMovementSharpness = 15f;
         public float OrientationSharpness = 10f;
+        public bool sprinting = false;
         public OrientationMethod OrientationMethod = OrientationMethod.TowardsCamera;
 
         [Header("Air Movement")]
-        public float MaxAirMoveSpeed = 15f;
+        public float MaxAirMoveSpeed = 10f;
+        public float maxSprintingAirMoveSpeed = 20f;
         public float AirAccelerationSpeed = 15f;
         public float Drag = 0.1f;
 
@@ -184,7 +188,6 @@ namespace KinematicCharacterController.Examples
                         } else if (inputs.miniJump)
                         {
                             _timeSinceJumpRequested = 0f;
-                            //_jumpRequested = false;
                             _miniJumpRequested = true;
                         }
 
@@ -204,6 +207,8 @@ namespace KinematicCharacterController.Examples
                         {
                             _shouldBeCrouching = false;
                         }
+
+                        sprinting = inputs.sprinting;
 
                         break;
                     }
@@ -295,6 +300,7 @@ namespace KinematicCharacterController.Examples
             {
                 case CharacterState.Default:
                     {
+                        float moveSpeed = sprinting ? maxStableSprintingSpeed : MaxStableMoveSpeed;
                         // Ground movement
                         if (Motor.GroundingStatus.IsStableOnGround)
                         {
@@ -308,7 +314,8 @@ namespace KinematicCharacterController.Examples
                             // Calculate target velocity
                             Vector3 inputRight = Vector3.Cross(_moveInputVector, Motor.CharacterUp);
                             Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
-                            Vector3 targetMovementVelocity = reorientedInput * MaxStableMoveSpeed;
+                            
+                            Vector3 targetMovementVelocity = reorientedInput * moveSpeed;
 
                             // Smooth movement Velocity
                             currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
@@ -316,6 +323,7 @@ namespace KinematicCharacterController.Examples
                         // Air movement
                         else
                         {
+                            float maxAirSpeed = sprinting ? maxSprintingAirMoveSpeed : MaxAirMoveSpeed;
                             // Add move input
                             if (_moveInputVector.sqrMagnitude > 0f)
                             {
@@ -324,10 +332,10 @@ namespace KinematicCharacterController.Examples
                                 Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
 
                                 // Limit air velocity from inputs
-                                if (currentVelocityOnInputsPlane.magnitude < MaxAirMoveSpeed)
+                                if (currentVelocityOnInputsPlane.magnitude < maxAirSpeed)
                                 {
                                     // clamp addedVel to make total vel not exceed max vel on inputs plane
-                                    Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity, MaxAirMoveSpeed);
+                                    Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity, maxAirSpeed);
                                     addedVelocity = newTotal - currentVelocityOnInputsPlane;
                                 }
                                 else
@@ -382,10 +390,16 @@ namespace KinematicCharacterController.Examples
                                 // If this line weren't here, the character would remain snapped to the ground when trying to jump. Try commenting this line out and see.
                                 Motor.ForceUnground();
 
-                                float speed = _jumpRequested ? JumpUpSpeed : miniJumpUpSpeed;
+                                // The frog gets mini speed if it's a mini jump or a long jump, regular otherwise
+                                float speed = JumpUpSpeed;
+                                if (!_jumpRequested || sprinting)
+                                    speed = miniJumpUpSpeed;
+
                                 // Add to the return velocity and reset jump state
                                 currentVelocity += (jumpDirection * speed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
-                                currentVelocity += (_moveInputVector * JumpScalableForwardSpeed);
+                                // only add scalable forward speed if long jumping
+                                if (_jumpRequested && sprinting)
+                                    currentVelocity += (_moveInputVector * JumpScalableForwardSpeed);
                                 _jumpConsumed = true;
                                 _majorJumpConsumed = _jumpRequested;
                                 _jumpedThisFrame = true;

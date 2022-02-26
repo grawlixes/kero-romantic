@@ -97,6 +97,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.miniJump = (!characterInputs.JumpDown) && 
                                        ((characterInputs.MoveAxisForward != 0) || 
                                         (characterInputs.MoveAxisRight != 0));
+            characterInputs.sprinting = Input.GetKey(KeyCode.LeftShift);
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
         }

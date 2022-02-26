@@ -23,7 +23,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FreezeThenPlay());
+        if (playerController != null)
+            StartCoroutine(FreezeThenPlay());
     }
 
     public IEnumerator FreezeThenPlay()
@@ -53,7 +54,14 @@ public class GameController : MonoBehaviour
 
     public void turnOnGame(bool toggled)
     {
-        SceneManager.LoadScene(1);
         canToggle = false;
+        StartCoroutine(textScript.OscillateForSeconds(2f));
+        StartCoroutine(FreezeThenStart());
+    }
+
+    public IEnumerator FreezeThenStart()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(1);
     }
 }

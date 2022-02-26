@@ -152,6 +152,7 @@
     <Compile Include="Assets\KinematicCharacterController\Core\IMoverController.cs" />
     <Compile Include="Assets\Scripts\MusicController.cs" />
     <Compile Include="Assets\Scripts\TextEffects.cs" />
+    <Compile Include="Assets\Scripts\GFController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
