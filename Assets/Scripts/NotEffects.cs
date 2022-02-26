@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class JoltAndFadeAway : MonoBehaviour
+public class NotEffects : MonoBehaviour
 {
     public float ALPHA_CHANGE;
     public float POSITION_CHANGE;
+    public float GREEN_CHANGE;
+
     public TextMeshProUGUI not;
     public AudioSource roh;
     public AudioSource rohReversed;
     public bool active;
+
+    private bool increaseGreen = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,23 @@ public class JoltAndFadeAway : MonoBehaviour
                 not.transform.position = new Vector3(not.transform.position.x,
                                                      not.transform.position.y + POSITION_CHANGE * Time.deltaTime,
                                                      not.transform.position.z);
+            }
+
+            // color changing
+            if (increaseGreen)
+            {
+                not.color = new Color(not.color.r,
+                                      not.color.g + GREEN_CHANGE * Time.deltaTime,
+                                      not.color.b,
+                                      not.color.a);
+                increaseGreen &= not.color.g < 0.99;
+            } else
+            {
+                not.color = new Color(not.color.r,
+                                      not.color.g - GREEN_CHANGE * Time.deltaTime,
+                                      not.color.b,
+                                      not.color.a);
+                increaseGreen |= not.color.g < 0.5;
             }
         }
         else if (!active)

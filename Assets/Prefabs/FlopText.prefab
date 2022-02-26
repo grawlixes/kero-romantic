@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ALPHA_CHANGE: 5
   POSITION_CHANGE: 20
+  GREEN_CHANGE: 1
   not: {fileID: 4688830081446567769}
   roh: {fileID: 7468729907644480349}
   rohReversed: {fileID: 7633620204483207443}
@@ -130,15 +131,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: NOT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24d3cbca07407b846b8aa1d34e0f05ff, type: 2}
+  m_sharedMaterial: {fileID: 1885603588066935346, guid: 24d3cbca07407b846b8aa1d34e0f05ff, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278251000
-  m_fontColor: {r: 0.9716981, g: 0.9285115, b: 0, a: 1}
+    rgba: 4278253689
+  m_fontColor: {r: 0.47405523, g: 0.972549, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 4.6811857, y: 4.6036034, z: 0, w: -4.6240087}
+  m_margin: {x: 13.403374, y: -0.05418408, z: -3.125965, w: -4.6240087}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -251,7 +252,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 180
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -341,6 +342,7 @@ GameObject:
   - component: {fileID: 5142880297529530969}
   - component: {fileID: 2663355846180788819}
   - component: {fileID: 3966729723325847006}
+  - component: {fileID: 2411188529460336401}
   m_Layer: 0
   m_Name: FlopText
   m_TagString: Untagged
@@ -437,23 +439,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'THIS
+  m_text: 'THIS IS
 
-    IS
-
-    SAMPLE
-
-    TEXT'
+    SAMPLE TEXT'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24d3cbca07407b846b8aa1d34e0f05ff, type: 2}
+  m_sharedMaterial: {fileID: 1885603588066935346, guid: 24d3cbca07407b846b8aa1d34e0f05ff, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190318
-  m_fontColor: {r: 0.9339623, g: 0, b: 0, a: 1}
+    rgba: 4279461120
+  m_fontColor: {r: 0, g: 0.3962264, b: 0.0731441, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -506,12 +504,24 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -5.234913, w: -22.984627}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2411188529460336401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5418199429599790879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07ed03149a5c8f48a34890c5a2e2238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8957524247771359023
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +576,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 180
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
