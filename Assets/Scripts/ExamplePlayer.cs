@@ -10,9 +10,10 @@ namespace KinematicCharacterController.Examples
     {
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
-
+        public bool canJump = true;
+        public bool freeCamera = true;
+ 
         private bool canInput = false;
-
         private const string MouseXInput = "Mouse X";
         private const string MouseYInput = "Mouse Y";
         private const string MouseScrollInput = "Mouse ScrollWheel";
@@ -44,14 +45,18 @@ namespace KinematicCharacterController.Examples
 
         private void LateUpdate()
         {
-            // Handle rotating the camera along with physics movers
-            if (CharacterCamera.RotateWithPhysicsMover && Character.Motor.AttachedRigidbody != null)
+            if (freeCamera)
             {
-                CharacterCamera.PlanarDirection = Character.Motor.AttachedRigidbody.GetComponent<PhysicsMover>().RotationDeltaFromInterpolation * CharacterCamera.PlanarDirection;
-                CharacterCamera.PlanarDirection = Vector3.ProjectOnPlane(CharacterCamera.PlanarDirection, Character.Motor.CharacterUp).normalized;
-            }
+                // Handle rotating the camera along with physics movers
+                if (CharacterCamera.RotateWithPhysicsMover && Character.Motor.AttachedRigidbody != null)
+                {
+                    CharacterCamera.PlanarDirection = Character.Motor.AttachedRigidbody.GetComponent<PhysicsMover>().RotationDeltaFromInterpolation * CharacterCamera.PlanarDirection;
+                    CharacterCamera.PlanarDirection = Vector3.ProjectOnPlane(CharacterCamera.PlanarDirection, Character.Motor.CharacterUp).normalized;
+                }
 
-            HandleCameraInput();
+                HandleCameraInput();
+
+            }
         }
 
         private void HandleCameraInput()
@@ -76,11 +81,25 @@ namespace KinematicCharacterController.Examples
             // Apply inputs to the camera
             CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
 
+            /*
             // Handle toggling zoom level
             if (Input.GetMouseButtonDown(1))
             {
                 CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
             }
+            */
+        }
+
+        public void MoveForward()
+        {
+            PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
+            characterInputs.MoveAxisForward = 1;
+            characterInputs.miniJump = true;
+
+            Character.SetInputs(ref characterInputs);
+
+            PlayerCharacterInputs none = new PlayerCharacterInputs();
+            Character.SetInputs(ref none);
         }
 
         private void HandleCharacterInput()
@@ -91,7 +110,8 @@ namespace KinematicCharacterController.Examples
             characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
             characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
             characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
+            if (canJump)
+                characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
             // The frog does a "mini-jump" whenever he's grounded and we're moving him forward.
             // Actual jump takes priority, though, so he'll always do a big stationary jump if you press space.
             characterInputs.miniJump = (!characterInputs.JumpDown) && 
@@ -105,6 +125,11 @@ namespace KinematicCharacterController.Examples
         public void ToggleInputCapability(bool capable)
         {
             canInput = capable;
+        }
+
+        public void ToggleJumpCapability()
+        {
+            canJump = !canJump;
         }
     }
 }

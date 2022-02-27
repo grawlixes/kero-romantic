@@ -822,9 +822,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cc1bcd35b9bb5674b876b2d6ef1f92bd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1186,7 +1186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3966729723325847006, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_text
-      value: "THE GAME HAS\n          BEGUN."
+      value: "THE GAME HAS\n          BEGUN"
       objectReference: {fileID: 0}
     - target: {fileID: 3966729723325847006, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_margin.w
@@ -1216,6 +1216,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlopText
       objectReference: {fileID: 0}
+    - target: {fileID: 5563015007619529528, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1230,23 +1234,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 25.7
+      value: 25.700012
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1294,11 +1298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 255
+      value: -251
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 278
+      value: -52
       objectReference: {fileID: 0}
     - target: {fileID: 6965456474858397808, guid: 8ca18eb0d131ff24e8357f05a87d8eb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1371,7 +1375,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2086534885}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: turnOnGame
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1381,6 +1385,15 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   canToggle: 1
+  shouldEnableOnStart: 1
+  level: {fileID: 0}
+  characterDialogue: {fileID: 0}
+  gfDialogue: {fileID: 0}
+  instructions: {fileID: 0}
+  gfTextScript: {fileID: 0}
+  gfNotScript: {fileID: 0}
+  heart: {fileID: 0}
+  textIndex: 0
 --- !u!4 &2086534886
 Transform:
   m_ObjectHideFlags: 0
